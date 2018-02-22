@@ -2081,7 +2081,7 @@ rule based on `host.vars.drives`:
 
     [root@icinga2-master1.localdomain /etc/icinga2/zones.d/master]# vim services.conf
 
-    apply Service "nscp-api-" for (drive in host.vars.drives) {
+    apply Service "nscp-api-" for (var drive in host.vars.drives) {
       import "generic-service"
 
       check_command = "nscp_api"
@@ -2133,7 +2133,7 @@ If you want to monitor specific Windows services, you could use the following ex
 
     [root@icinga2-master1.localdomain /etc/icinga2/zones.d/master]# vim services.conf
 
-    apply Service "nscp-api-" for (svc in host.vars.services) {
+    apply Service "nscp-api-" for (var svc in host.vars.services) {
       import "generic-service"
 
       check_command = "nscp_api"

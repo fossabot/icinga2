@@ -30,7 +30,7 @@ provides a string value:
       vars.http_vhosts["example.org"] = "192.168.1.100" // a string value
     }
 
-    apply Service for (http_vhost => config in host.vars.http_vhosts) {
+    apply Service for (var http_vhost => var config in host.vars.http_vhosts) {
       import "generic-service"
 
       vars += config // expects a dictionary

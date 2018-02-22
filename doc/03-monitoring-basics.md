@@ -415,7 +415,7 @@ arguments = {
     }
 
     var escaped_args = []
-    for (arg in resolve_arguments(command, arguments)) {
+    for (var arg in resolve_arguments(command, arguments)) {
       escaped_args.add(escape_shell_arg(arg))
     }
     return escaped_args.join(" ")
@@ -756,7 +756,7 @@ You can iterate over all dictionary keys defined in `disks`.
 You can optionally use the value to specify additional object attributes.
 
 ```
-apply Service for (disk => config in host.vars.disks) {
+apply Service for (var disk => var config in host.vars.disks) {
   [...]
 
   vars.disk_partitions = config.disk_partitions
@@ -1000,7 +1000,7 @@ The service's `display_name` should be set to the identifier inside the dictiona
 e.g. `if01`.
 
 ```
-apply Service for (identifier => oid in host.vars.oids) {
+apply Service for (var identifier => var oid in host.vars.oids) {
   check_command = "snmp"
   display_name = identifier
   vars.snmp_oid = oid
@@ -1102,11 +1102,11 @@ in `if-<interface_name>` for each iteration.
 
 ```
 /* loop over the host.vars.interfaces dictionary
- * for (key => value in dict) means `interface_name` as key
+ * for (var key => var value in dict) means `interface_name` as key
  * and `interface_config` as value. Access config attributes
  * with the indexer (`.`) character.
  */
-apply Service "if-" for (interface_name => interface_config in host.vars.interfaces) {
+apply Service "if-" for (var interface_name => var interface_config in host.vars.interfaces) {
 ```
 
 Import the `generic-service` template, assign the [iftraffic](10-icinga-template-library.md#plugin-contrib-command-iftraffic)
@@ -1297,7 +1297,7 @@ This is mandatory to iterate with the `key => value` notation
 in the below apply for rule.
 
 ```
-apply Service for (customer => config in host.vars.hosting) {
+apply Service for (var customer => var config in host.vars.hosting) {
   import "generic-service"
   check_command = "ping4"
 
@@ -2035,7 +2035,7 @@ object Host "my-server" {
   }
 }
 
-apply Service for (disk => config in host.vars.local_disks) {
+apply Service for (var disk => var config in host.vars.local_disks) {
   import "generic-service"
   check_command = "my-disk"
 

@@ -587,7 +587,7 @@ Host definition:
 
 Service apply for definitions:
 
-    apply Service "webserver_ping" for (instance => config in host.vars.webserver.instance) {
+    apply Service "webserver_ping" for (var instance => var config in host.vars.webserver.instance) {
       display_name = "webserver_" + instance
       check_command = "ping4"
 
@@ -596,7 +596,7 @@ Service apply for definitions:
       assign where host.vars.webserver.instance
     }
 
-    apply Service "webserver_port" for (instance => config in host.vars.webserver.instance) {
+    apply Service "webserver_port" for (var instance => var config in host.vars.webserver.instance) {
       display_name = "webserver_" + instance + "_" + config.port
       check_command = "tcp"
 
@@ -606,7 +606,7 @@ Service apply for definitions:
       assign where host.vars.webserver.instance
     }
 
-    apply Service "webserver_url" for (instance => config in host.vars.webserver.instance) {
+    apply Service "webserver_url" for (var instance => var config in host.vars.webserver.instance) {
       display_name = "webserver_" + instance + "_" + config.url
       check_command = "http"
 
@@ -786,7 +786,7 @@ a template matching the name `lexmark*`.
     /* register a global function for the assign where call */
     globals.check_host_templates = function(host, search) {
       /* iterate over all host templates and check if the search matches */
-      for (tmpl in host.templates) {
+      for (var tmpl in host.templates) {
         if (match(search, tmpl)) {
           return true
         }
@@ -832,7 +832,7 @@ with the `vars_app` dictionary.
       }
 
       /* iterate over the vars_app dictionary */
-      for (key => val in host.vars.vars_app) {
+      for (var key => var val in host.vars.vars_app) {
         /* if the value is a dictionary and if contains the app_type being the requested type */
         if (typeof(val) == Dictionary && val.app_type == type) {
           return true
@@ -1017,7 +1017,7 @@ object Host "cluster" {
     var down_count = 0
     var cluster_nodes = macro("$cluster_nodes$")
 
-    for (node in cluster_nodes) {
+    for (var node in cluster_nodes) {
       if (get_host(node).state > 0) {
         down_count += 1
       } else {
@@ -1036,7 +1036,7 @@ object Host "cluster" {
     var output = "Cluster hosts:\n"
     var cluster_nodes = macro("$cluster_nodes$")
 
-    for (node in cluster_nodes) {
+    for (var node in cluster_nodes) {
       output += node + ": " + get_host(node).last_check_result.output + "\n"
     }
 

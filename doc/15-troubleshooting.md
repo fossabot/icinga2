@@ -561,7 +561,7 @@ and calculate the differences. More infos can be found in [this blogpost](https:
 ```
 # ICINGA2_API_USERNAME=root ICINGA2_API_PASSWORD=icinga icinga2 console --connect 'https://localhost:5665/'
 
-<1> => var res = []; for (s in get_objects(Service).filter(s => s.last_check < get_time() - 2 * s.check_interval)) { res.add([s.__name, DateTime(s.last_check).to_string()]) }; res
+<1> => var res = []; for (var s in get_objects(Service).filter(s => s.last_check < get_time() - 2 * s.check_interval)) { res.add([s.__name, DateTime(s.last_check).to_string()]) }; res
 
 [ [ "10807-host!10807-service", "2016-06-10 15:54:55 +0200" ], [ "mbmif.int.netways.de!disk /", "2016-01-26 16:32:29 +0100" ] ]
 ```
@@ -569,7 +569,7 @@ and calculate the differences. More infos can be found in [this blogpost](https:
 Or if you are just interested in numbers, call [len](18-library-reference.md#array-len) on the result array `res`:
 
 ```
-<2> => var res = []; for (s in get_objects(Service).filter(s => s.last_check < get_time() - 2 * s.check_interval)) { res.add([s.__name, DateTime(s.last_check).to_string()]) }; res.len()
+<2> => var res = []; for (var s in get_objects(Service).filter(s => s.last_check < get_time() - 2 * s.check_interval)) { res.add([s.__name, DateTime(s.last_check).to_string()]) }; res.len()
 
 2.000000
 ```
@@ -582,7 +582,7 @@ and repeat the commands.
 
 "2017-04-04 16:09:39 +0200"
 
-<24> => var res = []; for (s in get_objects(Service).filter(s => s.last_check < get_time() - 2 * s.check_interval)) { res.add([s.__name, DateTime(s.last_check).to_string()]) }; res.len()
+<24> => var res = []; for (var s in get_objects(Service).filter(s => s.last_check < get_time() - 2 * s.check_interval)) { res.add([s.__name, DateTime(s.last_check).to_string()]) }; res.len()
 
 8287.000000
 ```
@@ -597,7 +597,7 @@ Host and Service objects provide the attribute `paused`. If this is set to `fals
 actively attempts to schedule and execute checks. Otherwise the node does not feel responsible.
 
 ```
-<3> => var res = {}; for (s in get_objects(Service).filter(s => s.last_check < get_time() - 2 * s.check_interval)) { res[s.paused] += 1 }; res
+<3> => var res = {}; for (var s in get_objects(Service).filter(s => s.last_check < get_time() - 2 * s.check_interval)) { res[s.paused] += 1 }; res
 {
   @false = 2.000000
   @true = 1.000000
@@ -617,7 +617,7 @@ This analysis assumes that clients which are not connected, have the string `con
 service check result output and their state is `UNKNOWN`.
 
 ```
-<4> => var res = {}; for (s in get_objects(Service)) { if (s.state==3) { if (match("*connected*", s.last_check_result.output)) { res[s.zone] += [s.host_name] } } };  for (k => v in res) { res[k] = len(v.unique()) }; res
+<4> => var res = {}; for (var s in get_objects(Service)) { if (s.state==3) { if (match("*connected*", s.last_check_result.output)) { res[s.zone] += [s.host_name] } } };  for (var k => var v in res) { res[k] = len(v.unique()) }; res
 
 {
   Asia = 31.000000

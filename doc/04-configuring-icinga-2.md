@@ -466,7 +466,7 @@ generated service
 
 Configuration example:
 
-    apply Service for (disk => config in host.vars.disks) {
+    apply Service for (var disk => var config in host.vars.disks) {
       import "generic-service"
 
       check_command = "disk"

@@ -675,7 +675,7 @@ Another way to express the same configuration would be something like:
       vars.parents = [ "vmware-master" ]
     }
 
-    apply Dependency "host-to-parent-" for (parent in host.vars.parents) to Host {
+    apply Dependency "host-to-parent-" for (var parent in host.vars.parents) to Host {
       parent_host_name = parent
     }
 

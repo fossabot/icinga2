@@ -340,7 +340,7 @@ More configuration details can be found [here](09-object-types.md#objecttype-inf
 Consider the following service check:
 
 ```
-apply Service "disk" for (disk => attributes in host.vars.disks) {
+apply Service "disk" for (var disk => var attributes in host.vars.disks) {
   import "generic-service"
   check_command = "disk"
   display_name = "Disk " + disk
@@ -355,7 +355,7 @@ for that check.  This would allow you to query time series data for a check on a
 specific instance e.g. /dev/sda.  To do this quite simply add the instance to the service variables:
 
 ```
-apply Service "disk" for (disk => attributes in host.vars.disks) {
+apply Service "disk" for (var disk => var attributes in host.vars.disks) {
   ...
   vars.instance = disk
   ...
